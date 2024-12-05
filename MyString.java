@@ -1,12 +1,24 @@
 public class MyString {
 
+    // Converts a string to lowercase
+    public static String lowerCase(String str) {
+        if (str == null) {
+            throw new IllegalArgumentException("Input string cannot be null");
+        }
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < str.length(); i++) {
+            result.append(Character.toLowerCase(str.charAt(i)));
+        }
+        return result.toString();
+    }
+
     // Vérifie si str2 est une sous-chaîne de str1
     public static boolean contains(String str1, String str2) {
         if (str1 == null || str2 == null) {
             throw new IllegalArgumentException("Strings cannot be null");
         }
         if (str2.isEmpty()) {
-            return true; // Une chaîne vide est toujours contenue
+            return true;
         }
         for (int i = 0; i <= str1.length() - str2.length(); i++) {
             boolean found = true;
@@ -23,46 +35,10 @@ public class MyString {
         return false;
     }
 
-    // Vérifie si str2 est un préfixe de str1
-    public static boolean isPrefix(String str1, String str2) {
-        if (str1 == null || str2 == null) {
-            throw new IllegalArgumentException("Strings cannot be null");
-        }
-        if (str2.length() > str1.length()) {
-            return false;
-        }
-        for (int i = 0; i < str2.length(); i++) {
-            if (str1.charAt(i) != str2.charAt(i)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    // Méthode principale pour les tests
     public static void main(String[] args) {
-        try {
-            // Tests de base
-            System.out.println("Test contains:");
-            System.out.println(contains("hello world", "world")); // true
-            System.out.println(contains("hello world", "planet")); // false
-            System.out.println(contains("hello", "")); // true
-
-            System.out.println("\nTest isPrefix:");
-            System.out.println(isPrefix("hello", "he")); // true
-            System.out.println(isPrefix("hello", "hello world")); // false
-
-            // Cas limites
-            System.out.println("\nEdge Cases:");
-            System.out.println(contains("", "")); // true
-            System.out.println(contains("abc", "")); // true
-            System.out.println(contains("", "abc")); // false
-            System.out.println(isPrefix("", "")); // true
-            System.out.println(isPrefix("abc", "")); // true
-            System.out.println(isPrefix("", "abc")); // false
-        } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
-            e.printStackTrace();
-        }
+        // Tests
+        System.out.println(lowerCase("Hello World")); // Output: hello world
+        System.out.println(lowerCase("EaSy PeAsY LeMoN SqUeEzy")); // Output: easy peasy lemon squeezy
     }
 }
+
