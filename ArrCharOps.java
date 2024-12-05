@@ -1,105 +1,127 @@
 public class ArrCharOps {
 
-    // Prints the contents of a character array
+    public static void main(String[] args) {
+        String str = "clearly";
+        char[] arr1 = {'c', 'l', 'e', 'a', 'r', 'l', 'y'};
+        char[] arr2 = {'U', 'n', 'd', 'e', 'r', 's', 't', 'o', 'o', 'd'};
+        System.out.println(str);  // Prints the string
+        println(arr1);            // Prints an array of characters
+        System.out.println(charAt(arr1, 2));
+        System.out.println(indexOf(arr1, 'l'));
+        System.out.println(indexOf(arr1, 'l', 3));
+        System.out.println(lastIndexOf(arr1, 'l'));
+        System.out.println(concat(arr1, arr2));
+        System.out.println(subArray(arr2, 2, 9));
+        System.out.println(compareTo("abcd", "abcd"));
+        System.out.println(compareTo("abc", "abcd"));
+        System.out.println(compareTo("abw", "abcd"));
+        System.out.println(compareTo("Abcd", "a"));
+        System.out.println(compareTo("apple", "banana"));
+        System.out.println(compareTo("apple", "applepie"));
+        System.out.println(compareTo("Zoo", "zoo"));
+        System.out.println(hashCode(arr1));
+        System.out.println(hashCode(arr2));
+    }
+
     public static void println(char[] arr) {
-        if (arr == null) {
-            throw new IllegalArgumentException("Array cannot be null");
-        }
-        for (char c : arr) {
-            System.out.print(c);
+        for (int i = 0; i < arr.length; i++) {
+            System.out.print(arr[i]);
         }
         System.out.println();
     }
 
-    // Returns the character at the specified index in the array
     public static char charAt(char[] arr, int index) {
-        if (arr == null || index < 0 || index >= arr.length) {
-            throw new IllegalArgumentException("Invalid array or index");
-        }
         return arr[index];
     }
 
-    // Returns the first index of the specified character in the array, or -1 if not found
-    public static int indexOf(char[] arr, char target) {
-        if (arr == null) {
-            throw new IllegalArgumentException("Array cannot be null");
+    public static boolean equals(char[] arr1, char[] arr2) {
+        if (arr1.length != arr2.length) {
+            return false;
         }
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i] == target) {
-                return i;
-            }
-        }
-        return -1; // Not found
-    }
-
-    // Returns the last index of the specified character in the array, or -1 if not found
-    public static int lastIndexOf(char[] arr, char target) {
-        if (arr == null) {
-            throw new IllegalArgumentException("Array cannot be null");
-        }
-        for (int i = arr.length - 1; i >= 0; i--) {
-            if (arr[i] == target) {
-                return i;
-            }
-        }
-        return -1; // Not found
-    }
-
-    // Concatenates two character arrays into a new array
-    public static char[] concat(char[] arr1, char[] arr2) {
-        if (arr1 == null || arr2 == null) {
-            throw new IllegalArgumentException("Arrays cannot be null");
-        }
-        char[] result = new char[arr1.length + arr2.length];
         for (int i = 0; i < arr1.length; i++) {
-            result[i] = arr1[i];
+            if (arr1[i] != arr2[i]) {
+                return false;
+            }
         }
-        for (int i = 0; i < arr2.length; i++) {
-            result[arr1.length + i] = arr2[i];
+        return true;
+    }
+
+    public static int indexOf(char[] arr, char ch) {
+        return indexOf(arr, ch, 0);
+    }
+
+    public static int indexOf(char[] arr, char ch, int fromIndex) {
+        for (int i = fromIndex; i < arr.length; i++) {
+            if (arr[i] == ch) {
+                return i;
+            }
         }
+        return -1;
+    }
+
+    public static int lastIndexOf(char[] arr, char ch) {
+        for (int i = arr.length - 1; i >= 0; i--) {
+            if (arr[i] == ch) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public static char[] concat(char[] arr1, char[] arr2) {
+        char[] result = new char[arr1.length + arr2.length];
+        System.arraycopy(arr1, 0, result, 0, arr1.length);
+        System.arraycopy(arr2, 0, result, arr1.length, arr2.length);
         return result;
     }
 
-    // Compares two strings lexicographically
-    public static int compareTo(String str1, String str2) {
-        if (str1 == null || str2 == null) {
-            throw new IllegalArgumentException("Strings cannot be null");
-        }
-        int minLength = Math.min(str1.length(), str2.length());
-        for (int i = 0; i < minLength; i++) {
-            if (str1.charAt(i) != str2.charAt(i)) {
-                return str1.charAt(i) - str2.charAt(i);
-            }
-        }
-        return str1.length() - str2.length();
+    public static char[] subArray(char[] arr, int beginIndex, int endIndex) {
+        char[] result = new char[endIndex - beginIndex];
+        System.arraycopy(arr, beginIndex, result, 0, endIndex - beginIndex);
+        return result;
     }
 
-    public static void main(String[] args) {
-        char[] arr1 = {'c', 'l', 'e', 'a', 'r', 'l', 'y'};
-        char[] arr2 = {'s', 'i', 'm', 'p', 'l', 'e'};
+    public static long hashCode(char[] arr) {
 
-        // Testing println
-        System.out.print("Array 1: ");
-        println(arr1);
+        if (arr.length == 0) {
+            return 0;
+        }
 
-        // Testing charAt
-        System.out.println("Character at index 2 in arr1: " + charAt(arr1, 2)); // Output: e
+        long hash = 0;
+        long power = 1;
+        for (int i = arr.length - 1; i >= 0; i--) {
+            hash += arr[i] * power;
+            power *= 7;
+        }
+        return hash;
+    }
 
-        // Testing indexOf
-        System.out.println("Index of 'e' in arr1: " + indexOf(arr1, 'e')); // Output: 2
-        System.out.println("Index of 'z' in arr1: " + indexOf(arr1, 'z')); // Output: -1
+    public static int compareTo(String str1, String str2) {
+        if (str1 == null || str2 == null || str1.isEmpty() || str2.isEmpty()) {
+            return -2;
+        }
 
-        // Testing lastIndexOf
-        System.out.println("Last index of 'l' in arr1: " + lastIndexOf(arr1, 'l')); // Output: 5
+        int length1 = str1.length();
+        int length2 = str2.length();
+        int minLength = Math.min(length1, length2);
 
-        // Testing concat
-        char[] concatenated = concat(arr1, arr2);
-        System.out.print("Concatenated array: ");
-        println(concatenated);
+        for (int i = 0; i < minLength; i++) {
+            char ch1 = str1.charAt(i);
+            char ch2 = str2.charAt(i);
 
-        // Testing compareTo
-        System.out.println("Comparing 'apple' and 'banana': " + compareTo("apple", "banana")); // Negative
-        System.out.println("Comparing 'hello' and 'hello': " + compareTo("hello", "hello")); // Zero
-        System.out.println("Comparing 'zebra' and 'apple': " + compareTo("zebra", "apple")); // Positive
+            if (ch1 > ch2) {
+                return 1; // Compare characters lexicographically
+            } else if (ch1 < ch2) {
+                return -1;
+            }
+        }
+
+        if (str1.length() < str2.length()) {
+            return -1;
+        } else if (str1.length() > str2.length()) {
+            return 1;
+        }
+
+        return 0;
     }
 }
