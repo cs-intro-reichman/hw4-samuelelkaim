@@ -52,23 +52,16 @@ public class ArrayCharOps {
 
     public static void main(String[] args) {
         try {
-            char[] arr1 = {'a', 'b', 'c'};
-            char[] arr2 = {'d', 'e', 'f'};
+            char[] arr1 = {'h', 'e', 'l', 'l', 'o'};
+            char[] arr2 = {'w', 'o', 'r', 'l', 'd'};
 
             // Test methods
-            println(arr1); // Output: abc
-            System.out.println(charAt(arr1, 1)); // Output: b
-            System.out.println(indexOf(arr1, 'c')); // Output: 2
-            System.out.println(indexOf(arr1, 'z')); // Output: -1
-            println(concat(arr1, arr2)); // Output: abcdef
+            println(arr1); // Output: hello
+            System.out.println(charAt(arr1, 2)); // Output: l
+            System.out.println(indexOf(arr1, 'l')); // Output: 2
+            println(concat(arr1, arr2)); // Output: helloworld
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
     }
 }
-   
-
-
-    
-
-      
